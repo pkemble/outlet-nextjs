@@ -1,18 +1,19 @@
 import { PostCard, NotebookList } from '../components/';
-import { getPosts } from '../services/';
+import { getPosts, getNotebooks } from './api';
 
-export default function Home({ data }) {
+export default function Home({ posts, notebooks }) {
   return (
     <div className="container mx-auto px-10 mb-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <div className="lg:colspan-8 colspan-1">
-{console.log(data)}
-          {data.map((post, index) => (
+        <div className="lg:col-span-8 col-span-1">
+          {posts.map((post, index) => (
               <PostCard key={index} props = { post } />
             ))}
         </div>
-        <div className="lg:colspan-4 colspan-1">
-          <NotebookList />
+        <div className="lg:col-span-4 col-span-1">
+          <div className='lg:sticky relative top-8'>
+            <NotebookList props={notebooks} />
+          </div>
         </div>
       </div>
     </div>
@@ -22,7 +23,13 @@ export default function Home({ data }) {
 export async function getServerSideProps() {
   const posts = await getPosts() || [];
   const allPosts = JSON.stringify(posts, (_key, value) => typeof value === 'bigint' ? value.toString() : value);
+  const notebooks = await getNotebooks() || [];
+  const allNotebooks = JSON.stringify(notebooks, (_key, value) => typeof value === 'bigint' ? value.toString() : value);
+
   return {
-    props: { data: JSON.parse(allPosts) },
+    props: {
+      posts: JSON.parse(allPosts),
+      notebooks: JSON.parse(allNotebooks)
+    },
   };
 }

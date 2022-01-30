@@ -12,8 +12,11 @@ const Header = () => {
                         </span>
                     </Link>
                 </div>
-                <div className='float-right contents'>
-                    some menu items
+                <div className='md:float-left contents'>
+                    <div className='md:float-right'>
+                        some menu items
+
+                    </div>
                 </div>
             </div>
         </div>

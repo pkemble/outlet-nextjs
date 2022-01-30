@@ -68,17 +68,19 @@ model notebooks {
   description String?  @db.VarChar(255)
   created_at  DateTime @db.DateTime(6)
   updated_at  DateTime @db.DateTime(6)
+  posts       posts[]
 }
 
 model posts {
   id          BigInt                 @id @default(autoincrement())
   title       String?                @db.VarChar(255)
   content     String?                @db.VarChar(255)
-  rich_text        action_text_rich_texts @relation(fields: [id], references: [record_id])
+  rich_text   action_text_rich_texts @relation(fields: [id], references: [record_id])
   created_at  DateTime               @db.DateTime(6)
   updated_at  DateTime               @db.DateTime(6)
   user_id     BigInt?
   notebook_id BigInt?
+  notebooks   notebooks?             @relation(fields: [notebook_id], references: [id])
   enclosure   String?                @db.VarChar(255)
   wpid        Int?
 

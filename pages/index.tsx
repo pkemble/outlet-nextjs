@@ -22,14 +22,12 @@ export default function Home({ posts, notebooks }) {
 
 export async function getServerSideProps() {
   const posts = await getPosts() || [];
-  const allPosts = JSON.stringify(posts, (_key, value) => typeof value === 'bigint' ? value.toString() : value);
   const notebooks = await getNotebooks() || [];
-  const allNotebooks = JSON.stringify(notebooks, (_key, value) => typeof value === 'bigint' ? value.toString() : value);
 
   return {
     props: {
-      posts: JSON.parse(allPosts),
-      notebooks: JSON.parse(allNotebooks)
+      posts: posts,
+      notebooks: notebooks
     },
   };
 }

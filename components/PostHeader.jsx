@@ -1,13 +1,11 @@
 import moment from 'moment';
 import React from 'react';
-import { Moment } from 'moment';
 
 const PostHeader = ({ props }) => {
 
     
     moment.locale('en');
     var headerString = moment(props.created_at).format('ll');
-    console.log(props.notebooks);
 
     if (props.notebooks !== null) {
         headerString += ' : ' + props.notebooks['title'];         

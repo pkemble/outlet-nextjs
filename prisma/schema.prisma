@@ -74,7 +74,6 @@ model notebooks {
 model posts {
   id          BigInt                 @id @default(autoincrement())
   title       String?                @db.VarChar(255)
-  content     String?                @db.VarChar(255)
   rich_text   action_text_rich_texts @relation(fields: [id], references: [record_id])
   created_at  DateTime               @db.DateTime(6)
   updated_at  DateTime               @db.DateTime(6)

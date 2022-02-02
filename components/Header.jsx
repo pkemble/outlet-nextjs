@@ -14,8 +14,9 @@ const Header = () => {
                 </div>
                 <div className='md:float-left contents'>
                     <div className='md:float-right'>
-                        some menu items
-
+                        <Link href='/'>
+                            Home
+                        </Link>
                     </div>
                 </div>
             </div>

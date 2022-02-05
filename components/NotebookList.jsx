@@ -7,11 +7,16 @@ const NotebookList = ({ props }) => {
         <div className='bg-white shadow-lg border rounded-lg p-0 lg:p-8 pb-12 mb-8'>
             {props.map((notebook, index) => (
                 <div className='font-bold'>
-                    <Link key={ index } href={`/posts/${notebook.id}`}>
+                    <Link key={ index } href={`/notebooks/${notebook.id}`}>
                         {notebook.title}
                     </Link>
                 </div>
             ))}
+            <div className='font-bold'>
+                <Link href="/">
+                    All Notebooks
+                </Link>
+            </div>
             <div className='color-grey mt-8'>
                 <Link href={'/notebooks/'}>
                     Edit Notebooks

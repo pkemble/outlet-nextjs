@@ -12,6 +12,7 @@ export const getPosts = async () => {
     return serializeData(allThePosts);
 };
 
+
 export default async function editNotebook(req, res) {
     const {notebook} = req.body;
     const result = await prisma.notebooks.update(notebook);

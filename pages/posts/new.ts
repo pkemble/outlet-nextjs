@@ -1,4 +1,4 @@
-import prisma from '../../.db';
+import prisma from '../../globals.js';
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {

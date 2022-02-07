@@ -7,92 +7,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model action_text_rich_texts {
-  id          BigInt   @id
-  name        String   @db.VarChar(255)
-  body        String?  @db.LongText
-  record_type String   @db.VarChar(255)
-  record_id   BigInt
-  created_at  DateTime @db.DateTime(6)
-  updated_at  DateTime @db.DateTime(6)
-  posts       posts[]
-}
-
-model active_storage_attachments {
-  id                   BigInt               @id @default(autoincrement())
-  name                 String               @db.VarChar(255)
-  record_type          String               @db.VarChar(255)
-  record_id            BigInt
-  blob_id              BigInt
-  created_at           DateTime             @db.DateTime(6)
-  active_storage_blobs active_storage_blobs @relation(fields: [blob_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_rails_c3b3935057")
-
-  @@unique([record_type, record_id, name, blob_id], map: "index_active_storage_attachments_uniqueness")
-  @@index([blob_id], map: "index_active_storage_attachments_on_blob_id")
-}
-
-model active_storage_blobs {
-  id                             BigInt                           @id @default(autoincrement())
-  key                            String                           @unique(map: "index_active_storage_blobs_on_key") @db.VarChar(255)
-  filename                       String                           @db.VarChar(255)
-  content_type                   String?                          @db.VarChar(255)
-  metadata                       String?                          @db.Text
-  service_name                   String                           @db.VarChar(255)
-  byte_size                      BigInt
-  checksum                       String?                          @db.VarChar(255)
-  created_at                     DateTime                         @db.DateTime(6)
-  active_storage_attachments     active_storage_attachments[]
-  active_storage_variant_records active_storage_variant_records[]
-}
-
-model active_storage_variant_records {
-  id                   BigInt               @id @default(autoincrement())
-  blob_id              BigInt
-  variation_digest     String               @db.VarChar(255)
-  active_storage_blobs active_storage_blobs @relation(fields: [blob_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_rails_993965df05")
-
-  @@unique([blob_id, variation_digest], map: "index_active_storage_variant_records_uniqueness")
-}
-
-model ar_internal_metadata {
-  key        String   @id @db.VarChar(255)
-  value      String?  @db.VarChar(255)
-  created_at DateTime @db.DateTime(6)
-  updated_at DateTime @db.DateTime(6)
-}
-
 model notebooks {
-  id          BigInt   @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   title       String?  @db.VarChar(255)
   description String?  @db.VarChar(255)
   created_at  DateTime @db.DateTime(6)
-  updated_at  DateTime @db.DateTime(6)
+  updated_at  DateTime @updatedAt @db.DateTime(6)
   posts       posts[]
 }
 
 model posts {
-  id          BigInt                 @id @default(autoincrement())
-  title       String?                @db.VarChar(255)
-  rich_text   action_text_rich_texts @relation(fields: [id], references: [record_id])
-  created_at  DateTime               @db.DateTime(6)
-  updated_at  DateTime               @db.DateTime(6)
-  user_id     BigInt?
-  notebook_id BigInt?
-  notebooks   notebooks?             @relation(fields: [notebook_id], references: [id])
-  enclosure   String?                @db.VarChar(255)
+  id          Int        @id @default(autoincrement())
+  title       String?    @db.VarChar(255)
+  content     String?    @db.Text
+  created_at  DateTime   @db.DateTime(6)
+  updated_at  DateTime   @updatedAt @db.DateTime(6)
+  user_id     Int?
+  notebook_id Int?
+  enclosure   String?    @db.VarChar(255)
   wpid        Int?
+  notebooks   notebooks? @relation(fields: [notebook_id], references: [id])
 
-  @@index([notebook_id], map: "index_posts_on_notebook_id")
   @@index([user_id], map: "index_posts_on_user_id")
 }
 
-model schema_migrations {
-  version String @id @db.VarChar(255)
-}
-
 model users {
-  id                     BigInt    @id @default(autoincrement())
+  id                     Int       @id @default(autoincrement())
   email                  String    @unique(map: "index_users_on_email") @default("") @db.VarChar(255)
   encrypted_password     String    @default("") @db.VarChar(255)
   reset_password_token   String?   @unique(map: "index_users_on_reset_password_token") @db.VarChar(255)

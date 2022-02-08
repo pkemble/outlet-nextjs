@@ -1,12 +1,13 @@
 import React from 'react';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import { Layout } from '../components';
+import { Layout, Main } from '../components';
 
-function MyApp({ Component, pageProps }: AppProps) {
+
+function MyApp({ pageProps }: AppProps) {
   return (
     <Layout>
-      <Component {...pageProps} />
+      <Main {...pageProps} />
     </Layout>
   )
 }

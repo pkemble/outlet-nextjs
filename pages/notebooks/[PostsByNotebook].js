@@ -1,9 +1,11 @@
-import React from "react";
+import {useContext} from "react";
 import { PostCard, NotebookList } from "../../components";
-
-import { getNotebooks, getPostsByNotebook } from '../api';
+import { DataContext } from "../../context/DataContext";
 
 const PostsByNotebook = ({ posts, notebooks }) => {
+
+    const {notebooks, PostsByNotebook} = useContext(DataContext);
+
     return (
         <div className="container mx-auto px-10 mb-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -24,12 +26,12 @@ const PostsByNotebook = ({ posts, notebooks }) => {
 
 export default PostsByNotebook;
 
-export async function getServerSideProps({ params }) {
+// export async function getServerSideProps({ params }) {
     
-    return {
-        props: {
-            posts: await getPostsByNotebook(params.PostsByNotebook),
-            notebooks: await getNotebooks(params.PostsByNotebook)
-        }
-    };
-}
+//     return {
+//         props: {
+//             posts: await getPostsByNotebook(params.PostsByNotebook),
+//             notebooks: await getNotebooks(params.PostsByNotebook)
+//         }
+//     };
+// }

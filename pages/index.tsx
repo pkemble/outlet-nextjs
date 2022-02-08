@@ -6,14 +6,14 @@ export default function Home() {
   )
 }
 
-export async function getServerSideProps() {
-  const posts = await getPosts() || [];
-  const notebooks = await getNotebooks() || [];
+// export async function getServerSideProps() {
+//   const posts = await getPosts() || [];
+//   const notebooks = await getNotebooks() || [];
 
-  return {
-    props: {
-      posts: posts,
-      notebooks: notebooks
-    },
-  };
-}
+//   return {
+//     props: {
+//       posts: posts,
+//       notebooks: notebooks
+//     },
+//   };
+// }

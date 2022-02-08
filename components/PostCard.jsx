@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactHtmlParser from 'react-html-parser';
+import { PostForm } from '.';
 import PostHeader from './PostHeader'
-import moment from 'moment';
 
-const PostCard = ({ props }) => {
+const PostCard = ({ post, notebooks }) => {
+
+    const [editPost, setEditPost] = useState(false);
+
     return (
-        <div className='clear-both bg-white border shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8'>
-            <PostHeader props={props} />
-            {ReactHtmlParser(props.content)}
-        </div>
+        <>
+            {!editPost ?
+                <div className='clear-both bg-white border shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8'>
+                    <PostHeader props={post} />
+                    {ReactHtmlParser(post.content)}
+                </div> :
+                <div className='clear-both bg-white border shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8'>
+                    <PostForm props={post, notebooks} />
+                </div>
+            }
+        </>
     );
 };
 

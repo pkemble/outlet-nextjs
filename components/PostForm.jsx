@@ -46,13 +46,13 @@ const PostForm = ({ notebooks, onPostFormVisible, existingPost }) => {
                 </div>
                 <label htmlFor='notebook'>Notebook:</label>
                 <div>
-                    <select className="shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    {/* <select className="shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="notebooks" name="notebooks" onChange={setPostData}>{notebooks.map(notebook =>
                         <option key={notebook.id} value={notebook.id}>
                             {notebook.title}
                         </option>
                     )}
-                    </select>
+                    </select> */}
                 </div>
                 <label htmlFor='title'>Title:</label>
                 <input

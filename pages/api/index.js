@@ -1,14 +1,16 @@
-//import { prisma } from "../../lib/prisma";
 
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient;
+//import { PrismaClient } from "@prisma/client";
+//const prisma = new PrismaClient;
+import prisma from "../../prisma.d.ts";
 
 export const getPosts = async () => {
     
     const allThePosts = await prisma.posts.findMany({
         include: {
             notebooks: true
+        },
+        orderBy: {
+            created_at: 'desc'
         }
     });
     return serializeData(allThePosts);

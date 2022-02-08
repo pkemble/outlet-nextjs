@@ -1,10 +1,5 @@
-//import { prisma } from "../../lib/prisma";
-
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient({
-    log: ['query', 'info', 'warn', 'error'],
-});
+import { prisma } from "../../prisma.d.ts";
+import moment from "moment";
 
 export default function handler(req, res) {
     const post = req.body;
@@ -20,19 +15,26 @@ async function updatePost(post) {
         data: {
             notebook_id: post.notebook_id,
             title: post.title,
-            rich_text: post.rich_text,
+            content: post.content,
         }
     });
     return result;
 }
 
 async function createPost(post) {
+    console.log(post)
     const result = await prisma.posts.create({
         data: {
-            notebook_id: parseInt(post.notebook_id),
+            notebooks: {
+                connect: {
+                    id: parseInt(post.notebooks) 
+                }
+            },
             title: post.title,
-            rich_text: post.rich_text,
+            content: post.content,
+            created_at: moment(post.created_at).toDate()
         }
     });
+
     return result;
 }

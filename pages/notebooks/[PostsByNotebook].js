@@ -25,15 +25,11 @@ const PostsByNotebook = ({ posts, notebooks }) => {
 export default PostsByNotebook;
 
 export async function getServerSideProps({ params }) {
-    const serPostsByNotebook = JSON.stringify(
-        await getPostsByNotebook(params.PostsByNotebook), (_key, value) => typeof value === 'bigint' ? value.toString() : value)
-    const serNotebooks = JSON.stringify(
-        await getNotebooks(params.PostsByNotebook), (_key, value) => typeof value === 'bigint' ? value.toString() : value)
     
     return {
         props: {
-            posts: JSON.parse(serPostsByNotebook),
-            notebooks: JSON.parse(serNotebooks)
+            posts: await getPostsByNotebook(params.PostsByNotebook),
+            notebooks: await getNotebooks(params.PostsByNotebook)
         }
     };
 }

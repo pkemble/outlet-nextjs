@@ -3,23 +3,31 @@ import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-const PostForm = ({ props }) => {
+const PostForm = ({ notebooks, onPostFormVisible, existingPost }) => {
 
-    const [post, setPostDate] = useState({post: created_at});
-    const [postTitle, setPostTitle] = useState({ post: title });
-    const [postContent, setPostContent] = useState({ post: content });
-    const [postNotebook, setPostNotebook] = useState({ post: notebook_id });
-    
+    const [post, setPost] = useState({
+        created_at: Date.now(),
+        title: 'original title',
+        content: '',
+        notebooks: ''
+    });
+
+    const setPostData = (e) => {
+        const newPostData = Object.assign({}, post);
+        newPostData[e.target.name] = e.target.value;
+        setPost(newPostData);
+    }
+
+    const setPostDate = (date) => {
+        const newPostDate = Object.assign({}, post);
+        newPostDate["created_at"] = date;
+        setPost(newPostDate);
+    }
+
     const createPost = async (e) => {
         e.preventDefault();
 
-        const post = {
-            notebook_id: e.target.notebook.value,
-            title: e.target.title.value,
-            content: e.target.content.value
-        }
-
-        console.log(post);
+        console.log(JSON.stringify(post))
 
         const res = await fetch('api/post', {
             headers: {
@@ -33,24 +41,31 @@ const PostForm = ({ props }) => {
     return (
         <div className='bg-white border shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8'>
             <form onSubmit={createPost} className="p5">
-                <DatePicker />
+                <div>
+                    <DatePicker id="created_at" name="created_at" onChange={(date) => setPostDate(date)} />
+                </div>
                 <label htmlFor='notebook'>Notebook:</label>
-                <select id="notebook">{props.map((notebook, index) =>
-                    <option key={notebook.id} value={notebook.id}>
-                        {notebook.title}
-                    </option>
-                )}
-                </select>
+                <div>
+                    <select className="shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="notebooks" name="notebooks" onChange={setPostData}>{notebooks.map(notebook =>
+                        <option key={notebook.id} value={notebook.id}>
+                            {notebook.title}
+                        </option>
+                    )}
+                    </select>
+                </div>
                 <label htmlFor='title'>Title:</label>
                 <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="title" type="text" onChange={setPost({post: value})} required />
+                    id="title" name="title" type="text" onChange={setPostData} required />
                 <label htmlFor='content'>Content:</label>
                 <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="content" type="text" required />
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-8"
-                    type="submit">LetOut</button>
+                    id="content" name="content" type="text" onChange={setPostData} required />
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-8 mr-4"
+                    type="submit">Let it Out</button>
+                <button className="bg-neutral-600 hover:bg-neutral-800 text-white font-bold py-2 px-4 rounded-full mt-8"
+                    type="button" onClick={onPostFormVisible}>Keep it in</button>
             </form>
         </div>
     );

@@ -1,13 +1,15 @@
-import { React, useState, useContext } from 'react';
+import { React, useState } from 'react';
 import { PostCard, PostForm, NotebookList } from './index';
 import { useOutletData } from '../context/DataContext';
 
 
 const Main = () => {
   const [postFormVisible, setPostFormVisible] = useState(true);
+  const {...outletData} = useOutletData();
+  const data = outletData.outletData;
+  console.log(data);
 
-  const outletData = useOutletData();
-  console.log(outletData);
+
   const onPostFormVisible = (e) => {
     e.preventDefault();
     setPostFormVisible(s => !s);
@@ -30,9 +32,9 @@ const Main = () => {
         <div className="container mx-auto px-10 mb-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-8 col-span-1">
-              {/* {!postFormVisible ? <PostForm props={posts} /> : posts.map((post, index) => (
-            <PostCard key={index} props={post, null} />
-          ))} */}
+              {!postFormVisible ? <PostForm notebooks={data.notebooks} onPostFormVisible={onPostFormVisible} /> : data.posts.map((post, index) => (
+            <PostCard key={index} post={post} notebooks={data.notebooks} />
+          ))}
             </div>
             <div className="lg:col-span-4 col-span-1">
               <div className='lg:sticky relative top-8'>
@@ -42,7 +44,7 @@ const Main = () => {
                     <button className="bg-neutral-600 hover:bg-neutral-800 text-white font-bold py-2 px-4 rounded-full"
                       type="button" onClick={(e) => onPostFormVisible(e)}>Keep it in</button>}
                 </div>
-                {/* <NotebookList props={notebooks} /> */}
+                <NotebookList props={data.notebooks} />
               </div>
             </div>
           </div>

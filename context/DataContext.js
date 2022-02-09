@@ -18,35 +18,25 @@ export function DataContextProvider({ children }) {
             status: 'LOADING',
         });
 
-        
-        setState({
-            status: "LOADED",
-            outletData: {
-                posts: fetchOutletData("getPosts"),
-                notebooks: fetchOutletData("getNotebooks")
-            }
-        });
-        
+        fetchOutletData();
+
     }, []);
-    
-    async function fetchOutletData(funcName) {
-       return APICall(funcName);
-    }
-    
-    async function APICall(funcName) {
-        const f = { "func": funcName };
-        console.log(JSON.stringify(f));
-        const response = await axios.post(`http://localhost:3000/api`, f)
-            .then(function (response) {
+
+    async function fetchOutletData() {
+        await axios.get(`http://localhost:3000/api`)
+            .then((response => {
                 if (response.data) {
-                    return response.data
+                    setState({
+                        status: 'LOADED',
+                        outletData: response.data
+                    })
                 } else {
                     setState({
                         status: 'ERROR',
                         outletData: response.error
                     });
                 }
-            })
+            }))
             .catch(function (error) {
                 console.log(error);
             });

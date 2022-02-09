@@ -46,13 +46,13 @@ const PostForm = ({ notebooks, onPostFormVisible, existingPost }) => {
                 </div>
                 <label htmlFor='notebook'>Notebook:</label>
                 <div>
-                    {/* <select className="shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    <select className="shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="notebooks" name="notebooks" onChange={setPostData}>{notebooks.map(notebook =>
                         <option key={notebook.id} value={notebook.id}>
                             {notebook.title}
                         </option>
                     )}
-                    </select> */}
+                    </select>
                 </div>
                 <label htmlFor='title'>Title:</label>
                 <input
@@ -65,7 +65,7 @@ const PostForm = ({ notebooks, onPostFormVisible, existingPost }) => {
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-8 mr-4"
                     type="submit">Let it Out</button>
                 <button className="bg-neutral-600 hover:bg-neutral-800 text-white font-bold py-2 px-4 rounded-full mt-8"
-                    type="button" onClick={onPostFormVisible}>Keep it in</button>
+                    type="button" onClick={(e) => onPostFormVisible(e)}>Keep it in</button>
             </form>
         </div>
     );

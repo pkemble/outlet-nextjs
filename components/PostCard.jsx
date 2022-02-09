@@ -11,11 +11,11 @@ const PostCard = ({ post, notebooks }) => {
         <>
             {!editPost ?
                 <div className='clear-both bg-white border shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8'>
-                    <PostHeader props={post} />
+                    <PostHeader post={post} />
                     {ReactHtmlParser(post.content)}
                 </div> :
                 <div className='clear-both bg-white border shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8'>
-                    <PostForm props={post, notebooks} />
+                    <PostForm nootebooks={post, notebooks} />
                 </div>
             }
         </>

@@ -1,10 +1,4 @@
-//import { prisma } from "../../lib/prisma";
-
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient({
-    log: ['query', 'info', 'warn', 'error'],
-});
+import { prisma } from "../../prisma.d.ts";
 
 export default function handler(req, res) {
     const notebook = req.body;

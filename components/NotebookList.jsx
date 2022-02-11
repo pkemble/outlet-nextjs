@@ -30,7 +30,7 @@ const NotebookList = ({ onPostFormVisible }) => {
                 </div>
             </div>
             <div className='color-grey pb-4 pt-4'>
-                <Link href={'/notebooks/'}>
+                <Link href={'/notebook-manager'}>
                     Edit Notebooks
                 </Link>
             </div>

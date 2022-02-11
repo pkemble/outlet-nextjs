@@ -16,9 +16,9 @@ const Header = () => {
                 </div>
                 <div className='md:float-left contents'>
                     <div className='md:float-right'>
-                        {/* <Link href={createPost()} href='#'>
-                            New Post
-                        </Link> */}
+                        <Link href={"/notebooks/notebook-manager"}>
+                            <a>Manage Notebooks</a>
+                        </Link>
                     </div>
                 </div>
             </div>

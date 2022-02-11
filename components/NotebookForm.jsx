@@ -1,24 +1,21 @@
-import React from "react";
+import axios from "axios";
+import React, { useContext } from "react";
+import { DataContext } from "../context/DataContext";
 
 const NotebookForm = ({ notebook }) => {
-  
+  const { ...outletData } = useContext(DataContext);
+
   const updateNotebook = async (e) => {
     e.preventDefault();
-    
+
     const n_update = {
       id: notebook.id,
       title: e.target.title.value,
       description: e.target.description.value,
     };
 
-    const res = await fetch(`/api/notebook`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'PUT',
-      body: JSON.stringify(n_update)
-    })
-    return res.json;
+    await axios.post(`/api/notebook`, n_update)
+      .finally(outletData.updateOutletData());
   };
 
   return (

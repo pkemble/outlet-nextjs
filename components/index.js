@@ -6,3 +6,5 @@ export { default as NotebookForm } from './NotebookForm';
 export { default as CreateNotebookForm } from './CreateNotebookForm';
 export { default as PostForm } from './PostForm';
 export { default as Main } from './Main';
+export { default as NotebookManager } from './NotebookManager';
+

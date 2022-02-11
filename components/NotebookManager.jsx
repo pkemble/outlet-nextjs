@@ -1,14 +1,17 @@
-import React from "react";
-import { NotebookForm, CreateNotebookForm } from "../../components";
-import { getNotebooks } from "../api";
+import { React } from "react";
+import { NotebookForm, CreateNotebookForm } from "./";
+import { DataContext, useOutletData } from "../context/DataContext";
 
-export default function Notebooks({ notebooks }) {
+const NotebookManager = () => {
+    const { ...outletData } = useOutletData(DataContext);
+    const { ...outletState } = outletData.state;
+console.log("render");
     return (
         <div className="container mx-auto px-10 mb-8">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                 <div className="lg:col-span-3 col-span-1">
                     <div className="grid grid-cols-3">
-                        {notebooks.map(notebook => (
+                        { outletState !== undefined && outletState.notebooks.map(notebook => (
                             <NotebookForm key={notebook.id} notebook={notebook} />
                         ))}
                         <CreateNotebookForm />
@@ -19,11 +22,4 @@ export default function Notebooks({ notebooks }) {
     );
 }
 
-export async function getServerSideProps() {
-    const notebooks = await getNotebooks();
-    return {
-        props: {
-            notebooks: notebooks
-        } || []
-    }
-}
+export default NotebookManager;

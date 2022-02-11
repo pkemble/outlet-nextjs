@@ -1,18 +1,17 @@
-import React from 'react';
-import '../styles/globals.css';
-import type { AppProps } from 'next/app';
-import { Layout, Main } from '../components';
-import { DataContextProvider } from '../context/DataContext';
+import '../styles/globals.css'
+import type { AppProps } from 'next/app'
+import { DataContextProvider } from '../context/DataContext'
+import { Layout } from '../components'
 
-
-function MyApp({ pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <DataContextProvider>
       <Layout>
-        <Main {...pageProps} />
+        <Component {...pageProps} />
       </Layout>
     </DataContextProvider>
   )
 }
 
 export default MyApp
+

@@ -4,7 +4,7 @@ import axios from 'axios';
 export const DataContext = createContext();
 
 export const useOutletData = () => {
-    return useContext(DataContext); //, DataContextProvider.updateOutletData;
+    return useContext(DataContext);
 }
 
 export function DataContextProvider({ children }) {
@@ -39,7 +39,7 @@ export function DataContextProvider({ children }) {
     async function fetchOutletData(method, filter) {
         switch (method) {
             case 'POST':
-                await axios.post(`http://localhost:3000/api`, filter)
+                await axios.post("/api", filter)
                     .then((response => {
                         if (response.data) {
                             setState({
@@ -58,7 +58,7 @@ export function DataContextProvider({ children }) {
                     });
                 break;
             default:
-                await axios.get(`http://localhost:3000/api`)
+                await axios.get("/api")
                     .then((response => {
                         if (response.data) {
                             setState({

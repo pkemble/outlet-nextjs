@@ -10,12 +10,12 @@ const PostCard = ({ post, notebooks }) => {
     return (
         <>
             {!editPost ?
-                <div className='clear-both bg-white border shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8'>
+                <div className='clear-both bg-white border shadow-lg rounded-lg p-2 lg:p-8 pb-12 mb-8'>
                     <PostHeader post={post} />
                     {ReactHtmlParser(post.content)}
                 </div> :
-                <div className='clear-both bg-white border shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8'>
-                    <PostForm nootebooks={post, notebooks} />
+                <div className='clear-both bg-white border shadow-lg rounded-lg p-2 lg:p-8 pb-12 mb-8'>
+                    <PostForm notebooks={post, notebooks} />
                 </div>
             }
         </>

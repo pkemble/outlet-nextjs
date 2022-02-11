@@ -1,9 +1,9 @@
-import { prisma } from "../../prisma.d.ts";
+import prisma from "../../prisma.d.ts";
 import moment from "moment";
 
 export default function handler(req, res) {
     const post = req.body;
-    const result = req.method === 'PUT' ? updatePost(post) : createPost(post);
+    const result = post.id === undefined ?  createPost(post) : updatePost(post);
     return res.json(result);
 }
 
@@ -27,7 +27,7 @@ async function createPost(post) {
         data: {
             notebooks: {
                 connect: {
-                    id: parseInt(post.notebooks) 
+                    id: parseInt(post.notebooks.id) 
                 }
             },
             title: post.title,

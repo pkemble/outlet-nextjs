@@ -1,22 +1,28 @@
+import { updateLocale } from 'moment';
 import Link from 'next/link';
 import React from 'react';
+import { useContext } from 'react';
+import { DataContext, useOutletData } from '../context/DataContext';
 
-const NotebookList = ({ props }) => {
-   
+const NotebookList = ({ onPostFormVisible }) => {
+
+    const { ...outletData } = useOutletData(DataContext);
+
     return (
         <div className='bg-white shadow-lg border rounded-lg p-0 lg:p-8 pb-12 mb-8 text-center'>
             <span className='border-b pb-4'>Notebooks:</span>
-            {props.map(notebook => (
-                <div key={ notebook.id } className='font-bold border-b pb-4 pt-4'>
-                    <Link href={`/notebooks/${notebook.id}`}>
-                        {notebook.title}
-                    </Link>
+            {outletData.state.notebooks.map(notebook => (
+                <div key={notebook.id} id={notebook.id}
+                    onClick={() => outletData.updateOutletData(notebook.id), (e) => onPostFormVisible(e, false)}
+                    className='font-bold border-b pb-4 pt-4 cursor-pointer'>
+                    {notebook.title}
                 </div>
             ))}
             <div className='font-bold border-b pb-4 pt-4'>
-                <Link href="/">
+                <div onClick={() => outletData.updateOutletData(), (e) => onPostFormVisible(e, false)}
+                    className='font-bold border-b pb-4 pt-4 cursor-pointer'>
                     All Notebooks
-                </Link>
+                </div>
             </div>
             <div className='color-grey pb-4 pt-4'>
                 <Link href={'/notebooks/'}>

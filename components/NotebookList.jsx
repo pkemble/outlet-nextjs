@@ -19,7 +19,6 @@ const NotebookList = ({ onPostFormVisible }) => {
                     {notebook.title}
                 </div>
             ))}
-            <div className='font-bold border-b pb-4 pt-4'>
                 <div
                     onClick={(e) => {
                         outletData.updateOutletData();
@@ -28,12 +27,11 @@ const NotebookList = ({ onPostFormVisible }) => {
                     className='font-bold border-b pb-4 pt-4 cursor-pointer'>
                     All Notebooks
                 </div>
-            </div>
-            <div className='color-grey pb-4 pt-4'>
-                <Link href={'/notebook-manager'}>
-                    Edit Notebooks
-                </Link>
-            </div>
+                <div className='color-grey font-bold border-none pb-4 pt-4 cursor-pointer'>
+                    <Link href={'/notebook-manager'} >
+                        Edit Notebooks
+                    </Link>
+                </div>
         </div>
     );
 };

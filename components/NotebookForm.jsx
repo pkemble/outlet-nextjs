@@ -12,6 +12,7 @@ const NotebookForm = ({ notebook }) => {
       id: notebook.id,
       title: e.target.title.value,
       description: e.target.description.value,
+      ceated_at: Date.now()
     };
 
     await axios.post(`/api/notebook`, n_update)

@@ -11,7 +11,7 @@ model notebooks {
   id          Int      @id @default(autoincrement())
   title       String?  @db.VarChar(255)
   description String?  @db.VarChar(255)
-  created_at  DateTime @db.DateTime(6)
+  created_at  DateTime @db.DateTime(6) @default(now())
   updated_at  DateTime @updatedAt @db.DateTime(6)
   posts       posts[]
 }
@@ -20,7 +20,7 @@ model posts {
   id          Int        @id @default(autoincrement())
   title       String?    @db.VarChar(255)
   content     String?    @db.Text
-  created_at  DateTime   @db.DateTime(6)
+  created_at  DateTime   @db.DateTime(6) @default(now())
   updated_at  DateTime   @updatedAt @db.DateTime(6)
   user_id     Int?
   notebook_id Int?

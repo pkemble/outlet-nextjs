@@ -1,4 +1,4 @@
-import { prisma } from "../../prisma.d.ts";
+import prisma from "../../prisma.d.ts";
 
 export default function handler(req, res) {
     const notebook = req.body;

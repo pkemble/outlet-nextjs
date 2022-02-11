@@ -2,7 +2,7 @@ import { prisma } from "../../prisma.d.ts";
 
 export default function handler(req, res) {
     const notebook = req.body;
-    const result = req.method === 'PUT' ? updateNotebook(notebook) : createNotebook(notebook);
+    const result = notebook.id ? updateNotebook(notebook) : createNotebook(notebook);
     return res.json(result);
 }
 

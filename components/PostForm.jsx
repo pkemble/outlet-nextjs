@@ -1,62 +1,63 @@
-import { React, useState, useContext } from 'react';
+import { React, useState, useContext, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import { DataContext } from '../context/DataContext';
 import "react-datepicker/dist/react-datepicker.css";
+import axios from 'axios';
 
-const PostForm = ({ notebooks, onPostFormVisible, existingPost }) => {
-    const {...outletData} = useContext(DataContext);
+const PostForm = ({ notebooks, onPostFormVisible, actionText, existingPost }) => {
+    const { ...outletData } = useContext(DataContext);
+    const [post, setPost] = useState({ existingPost });
 
-    if (existingPost) {
-        setPost({ existingPost });
-    }
+    useEffect(() => {
+        if (existingPost) {
+            setPost(existingPost)
+        } else {
+            existingPost = {};
+        }
+    }, [existingPost])
 
-    const [post, setPost] = useState({
-        created_at: Date.now(),
-        title: '',
-        content: '',
-        notebooks: notebooks[0]
-    });
 
     const setPostData = (e) => {
-        const newPostData = Object.assign({}, post);
-        newPostData[e.target.name] = e.target.value;
-        setPost(newPostData);
+        setPost(prevState => ({
+            ...prevState,
+            [e.target.name]: e.target.value
+        }))
     }
 
     const setPostDate = (date) => {
-        const newPostDate = Object.assign({}, post);
-        newPostDate["created_at"] = date;
-        setPost(newPostDate);
+        setPost({
+            ...post,
+            post: {
+                created_at: date
+            }
+        });
     }
 
     const createPost = async (e) => {
         e.preventDefault();
 
-        console.log(JSON.stringify(post))
-
-        const res = await fetch('api/post', {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-            body: JSON.stringify(post)
-        })
-        outletData.updateOutletData();
-        onPostFormVisible(e, false);
+        await axios.post('api/post', post)
+            .then(response => {
+                outletData.updateOutletData()
+                onPostFormVisible(e, false)
+            })
+            .catch(error => console.log(error));
     }
 
     return (
         <div className='bg-white border shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8'>
-            <form onSubmit={createPost} className="p5">
+            <h2>{actionText}</h2>
+            <form key={post.id || ''} onSubmit={createPost} className="p5">
                 <div>
-                    <DatePicker id="created_at" name="created_at" onChange={(date) => setPostDate(date)} />
+                    <DatePicker id="created_at" name="created_at" onChange={(date) => setPostDate(date)} defaultValue={post.created_at} />
                 </div>
                 <label htmlFor='notebook'>Notebook:</label>
                 <div>
                     <select
                         className="shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        name="notebooks"
-                        onChange={setPostData} >
+                        name="notebook_id"
+                        onChange={(e) => setPostData(e)}
+                        defaultValue={post.notebook_id} >
                         {notebooks.map(notebook =>
                             <option key={notebook.id} value={notebook.id}>
                                 {notebook.title}
@@ -67,13 +68,16 @@ const PostForm = ({ notebooks, onPostFormVisible, existingPost }) => {
                 <label htmlFor='title'>Title:</label>
                 <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="title" name="title" type="text" onChange={setPostData} required />
+                    id="title" name="title" type="text" onChange={(e) => setPostData(e)} required defaultValue={post.title} />
                 <label htmlFor='content'>Content:</label>
                 <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="content" name="content" type="text" onChange={setPostData} required />
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-8 mr-4"
-                    type="submit">Let it Out</button>
+                    id="content" name="content" type="text" onChange={(e) => setPostData(e)} required defaultValue={post.content} />
+                {existingPost ?
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-8 mr-4"
+                        type="submit">Let it Update</button> :
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-8 mr-4"
+                        type="submit">Let it Out</button>}
                 <button className="bg-neutral-600 hover:bg-neutral-800 text-white font-bold py-2 px-4 rounded-full mt-8"
                     type="button" onClick={(e) => onPostFormVisible(e, false)}>Keep it in</button>
             </form>

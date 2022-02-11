@@ -1,4 +1,4 @@
-import { React, useState, useReducer, useContext } from 'react';
+import { React, useState, memo, useReducer, useContext } from 'react';
 import { PostCard, PostForm, NotebookList } from './index';
 import { DataContext, useOutletData } from '../context/DataContext';
 
@@ -8,12 +8,6 @@ const Main = () => {
   const { ...outletData } = useOutletData(DataContext);
   const { ...outletState } = outletData.state;
   
-  function handleNotebookFilter(e) {
-    const filteredPosts = outletData.posts.filter(p => p.notebook_id === parseInt(e.target.id));
-    console.log(filteredPosts);
-    updateOutletData(filteredPosts);
-  }
-
   const onPostFormVisible = (e, s) => {
     e.preventDefault();
     setPostFormVisible(s);
@@ -31,10 +25,10 @@ const Main = () => {
           <div className="grid grid-cols-2 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-8 col-span-1">
               {postFormVisible ?
-                <PostForm notebooks={outletState.notebooks} onPostFormVisible={onPostFormVisible} /> :
-                outletState.posts.map((post, index) => (
-                  <PostCard key={index} post={post} notebooks={outletState.notebooks} />
-                ))}
+                <PostForm notebooks={outletState.notebooks} onPostFormVisible={onPostFormVisible} actionText={"Create Post: "} /> :
+                outletState.posts.map((post, index) => 
+                  <PostCard key={index} post={post} notebooks={outletState.notebooks} onPostFormVisible={onPostFormVisible} />
+                )}
             </div>
             <div className="lg:col-span-4 col-span-1">
               <div className='lg:sticky relative top-8'>
@@ -46,7 +40,7 @@ const Main = () => {
                       onClick={(e) => onPostFormVisible(e, true)}>New Post</button>
                   }
                 </div>
-                <NotebookList onPostFormVisible={onPostFormVisible} />
+                <NotebookList onPostFormVisible={onPostFormVisible}/>
               </div>
             </div>
           </div>

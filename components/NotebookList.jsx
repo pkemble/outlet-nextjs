@@ -1,7 +1,5 @@
-import { updateLocale } from 'moment';
 import Link from 'next/link';
 import React from 'react';
-import { useContext } from 'react';
 import { DataContext, useOutletData } from '../context/DataContext';
 
 const NotebookList = ({ onPostFormVisible }) => {
@@ -13,13 +11,20 @@ const NotebookList = ({ onPostFormVisible }) => {
             <span className='border-b pb-4'>Notebooks:</span>
             {outletData.state.notebooks.map(notebook => (
                 <div key={notebook.id} id={notebook.id}
-                    onClick={() => outletData.updateOutletData(notebook.id), (e) => onPostFormVisible(e, false)}
+                    onClick={(e) => {
+                        outletData.updateOutletData(notebook.id);
+                        onPostFormVisible(e, false);
+                    }}
                     className='font-bold border-b pb-4 pt-4 cursor-pointer'>
                     {notebook.title}
                 </div>
             ))}
             <div className='font-bold border-b pb-4 pt-4'>
-                <div onClick={() => outletData.updateOutletData(), (e) => onPostFormVisible(e, false)}
+                <div
+                    onClick={(e) => {
+                        outletData.updateOutletData();
+                        onPostFormVisible(e, false);
+                    }}
                     className='font-bold border-b pb-4 pt-4 cursor-pointer'>
                     All Notebooks
                 </div>

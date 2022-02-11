@@ -26,6 +26,9 @@ export const getPostsByNotebook = async (n_id) => {
         },
         include: {
             notebooks: true
+        },
+        orderBy: {
+            created_at: 'desc'
         }
     })
     return postsByNotebook;

@@ -11,7 +11,7 @@ console.log("render");
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                 <div className="lg:col-span-3 col-span-1">
                     <div className="grid grid-cols-3">
-                        { outletState !== undefined && outletState.notebooks.map(notebook => (
+                        { outletState.notebooks !== undefined && outletState.notebooks.map(notebook => (
                             <NotebookForm key={notebook.id} notebook={notebook} />
                         ))}
                         <CreateNotebookForm />

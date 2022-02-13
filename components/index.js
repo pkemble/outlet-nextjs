@@ -7,4 +7,6 @@ export { default as CreateNotebookForm } from './CreateNotebookForm';
 export { default as PostForm } from './PostForm';
 export { default as Main } from './Main';
 export { default as NotebookManager } from './NotebookManager';
+export { default as PostContentEditor } from './PostFormEditor/PostContentEditor';
+          
 

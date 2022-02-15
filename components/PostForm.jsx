@@ -2,8 +2,8 @@ import { React, useState, useContext, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import { DataContext } from '../context/DataContext';
 import "react-datepicker/dist/react-datepicker.css";
-import axios from 'axios';
 import { PostContentEditor } from '.';
+import axios from 'axios';
 
 const PostForm = ({ notebooks, onPostFormVisible, actionText, existingPost }) => {
     const { ...outletData } = useContext(DataContext);
@@ -33,17 +33,24 @@ const PostForm = ({ notebooks, onPostFormVisible, actionText, existingPost }) =>
             }
         });
     }
+    const getContentForSubmit = (e) => {
+        setPost(prevState => ({
+            ...prevState,
+            content: e
+        }))
+    }
 
-    const createPost = async (e) => {
+    const sendPostData = async (e) => {
         e.preventDefault();
-        console.log(PostContentEditor.editorState);
 
-        // await axios.post('api/post', post)
-        //     .then(response => {
-        //         outletData.updateOutletData()
-        //         onPostFormVisible(e, false)
-        //     })
-        //     .catch(error => console.log(error));
+        console.log(post);
+
+        await axios.post('api/post', post)
+            .then(response => {
+                outletData.updateOutletData()
+                onPostFormVisible(e, false)
+            })
+            .catch(error => console.log(error));
     }
 
     return (
@@ -51,7 +58,7 @@ const PostForm = ({ notebooks, onPostFormVisible, actionText, existingPost }) =>
             <div className='font-bold text-center'>
                 <h2>{actionText}</h2>
             </div>
-            <form key={post.id || ''} onSubmit={createPost} className="p5">
+            <form key={post.id || ''} onSubmit={sendPostData} className="p5">
                 <label htmlFor='created_at'>Date Created</label>
                 <div className="shadow appearance-none border rounded min-w-0 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                     <DatePicker id="created_at" name="created_at" onChange={(date) => setPostDate(date)} selected={!post.created_at ? Date.now() : Date.parse(post.created_at)} />
@@ -75,7 +82,7 @@ const PostForm = ({ notebooks, onPostFormVisible, actionText, existingPost }) =>
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="title" name="title" type="text" onChange={(e) => setPostData(e)} required defaultValue={post.title} />
                 <label htmlFor='content'>Content:</label>
-                <PostContentEditor />
+                <PostContentEditor existingPost={ existingPost } getContentForSubmit={getContentForSubmit} />
                 {/* <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="content" name="content" type="text" onChange={(e) => setPostData(e)} required defaultValue={post.content} /> */}

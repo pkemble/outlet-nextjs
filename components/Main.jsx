@@ -1,4 +1,4 @@
-import { React, useState, memo, useReducer, useContext } from 'react';
+import { React, useState } from 'react';
 import { PostCard, PostForm, NotebookList } from './index';
 import { DataContext, useOutletData } from '../context/DataContext';
 
@@ -21,7 +21,7 @@ const Main = () => {
             <span className="visually-hidden">Loading...</span>
           </div>
         </div> :
-        <div className="container mx-auto px-10 mb-8">
+        <div className="lg:container mx-auto px-10 mb-8">
           <div className="grid grid-cols-2 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-8 col-span-1">
               {postFormVisible ?

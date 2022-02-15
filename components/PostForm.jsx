@@ -53,6 +53,17 @@ const PostForm = ({ notebooks, onPostFormVisible, actionText, existingPost }) =>
             .catch(error => console.log(error));
     }
 
+    const deletePost = async (e) => {
+        e.preventDefault();
+
+        await axios.delete(`api/posts/${post.id}`)
+        .then(response => {
+            outletData.updateOutletData()
+            onPostFormVisible(e, false)
+        })
+        .catch(error => console.error(error));
+    }
+
     return (
         <div className='bg-white border shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8'>
             <div className='font-bold text-center'>
@@ -82,17 +93,21 @@ const PostForm = ({ notebooks, onPostFormVisible, actionText, existingPost }) =>
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="title" name="title" type="text" onChange={(e) => setPostData(e)} required defaultValue={post.title} />
                 <label htmlFor='content'>Content:</label>
-                <PostContentEditor existingPost={ existingPost } getContentForSubmit={getContentForSubmit} />
+                <PostContentEditor existingPost={existingPost} getContentForSubmit={getContentForSubmit} />
                 {/* <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="content" name="content" type="text" onChange={(e) => setPostData(e)} required defaultValue={post.content} /> */}
                 {existingPost ?
+                    <>
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-8 mr-4"
+                            type="submit">let it update</button>
+                        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mt-8 mr-4"
+                            type="button" onClick={(e) => deletePost(e)}>kill it forever</button>
+                    </> :
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-8 mr-4"
-                        type="submit">Let it Update</button> :
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-8 mr-4"
-                        type="submit">Let it Out</button>}
+                        type="submit">let it out</button>}
                 <button className="bg-neutral-600 hover:bg-neutral-800 text-white font-bold py-2 px-4 rounded-full mt-8"
-                    type="button" onClick={(e) => onPostFormVisible(e, false)}>Keep it in</button>
+                    type="button" onClick={(e) => onPostFormVisible(e, false)}>keep it in for now</button>
             </form>
         </div>
     );

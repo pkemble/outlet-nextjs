@@ -4,6 +4,10 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 
 export default function handler(req, res) {
     const post = req.body;
+    if (req.method === 'DELETE') {
+        const result = deletePost(post);
+        return res.json(result);
+    }
     const result = post.id === undefined ? createPost(post) : updatePost(post);
     return res.json(result);
 }
@@ -45,6 +49,22 @@ async function createPost(post) {
                 title: post.title,
                 content: post.content,
                 created_at: moment(post.created_at).toDate()
+            }
+        });
+    } catch (e) {
+        if (e instanceof PrismaClientKnownRequestError) {
+            console.log(e.message)
+        }
+        throw e;
+    }
+
+}
+
+async function deletePost(post) {
+    try {
+        await prisma.posts.delete({
+            where: {
+                id: parseInt(post.id)
             }
         });
     } catch (e) {

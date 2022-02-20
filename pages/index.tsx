@@ -8,9 +8,7 @@ export default function Home({ ...pageProps }) {
 
   if (session && session.user?.email === "pkemble@gmail.com") {
     return (
-      <DataContextProvider>
         <Main {...pageProps} />
-      </DataContextProvider>
     )
   }
   return (

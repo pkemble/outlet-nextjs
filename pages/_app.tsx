@@ -1,18 +1,18 @@
 import '../styles/globals.css'
 import '../components/PostFormEditor/PostFormEditor.css';
 import type { AppProps } from 'next/app'
-import { DataContextProvider } from '../context/DataContext'
 import { Layout } from '../components'
+import { SessionProvider } from 'next-auth/react';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <DataContextProvider>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </DataContextProvider>
+    <SessionProvider session={session} refetchInterval={5 * 60}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+    </SessionProvider>
   )
 }
 
-export default MyApp
+export default App
 

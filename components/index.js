@@ -8,5 +8,6 @@ export { default as PostForm } from './PostForm';
 export { default as Main } from './Main';
 export { default as NotebookManager } from './NotebookManager';
 export { default as PostContentEditor } from './PostFormEditor/PostContentEditor';
+export { default as Login } from './Login';
           
 

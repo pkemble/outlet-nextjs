@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
 import { DataContext, useOutletData } from '../context/DataContext';
+import { getServerSideProps } from '../pages/notebooks/[notebook_id]';
+// import prisma from '../prisma';
 
 const NotebookList = ({ onPostFormVisible }) => {
 
@@ -37,3 +39,8 @@ const NotebookList = ({ onPostFormVisible }) => {
 };
 
 export default NotebookList;
+
+// export async function getServerSideProps() {
+//     const notebooks = prisma.notebooks.findMany();
+//     return notebooks;
+// }

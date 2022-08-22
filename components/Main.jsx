@@ -7,7 +7,7 @@ const Main = () => {
   const [postFormVisible, setPostFormVisible] = useState(false);
   const { ...outletData } = useOutletData(DataContext);
   const { ...outletState } = outletData.state;
-  
+
   const onPostFormVisible = (e, s) => {
     e.preventDefault();
     setPostFormVisible(s);
@@ -16,21 +16,19 @@ const Main = () => {
   return (
     <>
       {outletData.state.status === 'LOADING' ?
-        <div className="flex justify-center items-center">
-          <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
+        <div class="flex justify-center items-center">
+          <div class="spinner-border animate-spin inline-block w-14 h-14 border-4 rounded-full border-b-black border-t-grey-500" role="status" />
         </div> :
         <div className="lg:container mx-auto px-10 mb-8">
-          <div className="grid grid-cols-2 lg:grid-cols-12 gap-12">
-            <div className="lg:col-span-8 col-span-1">
+          <div className="lg:grid lg:grid-cols-12 lg:gap-12 sm:flex sm:flex-col-reverse">
+            <div className="lg:col-span-8">
               {postFormVisible ?
                 <PostForm notebooks={outletState.notebooks} onPostFormVisible={onPostFormVisible} actionText={"Create Post: "} /> :
-                outletState.posts.map((post, index) => 
+                outletState.posts.map((post, index) =>
                   <PostCard key={index} post={post} notebooks={outletState.notebooks} onPostFormVisible={onPostFormVisible} />
                 )}
             </div>
-            <div className="lg:col-span-4 col-span-1">
+            <div className="lg:col-span-4">
               <div className='lg:sticky relative top-8'>
                 <div className='bg-white shadow-lg border rounded-lg p-2 lg:p-4 mb-2 text-center'>
                   {postFormVisible ?
@@ -40,7 +38,7 @@ const Main = () => {
                       onClick={(e) => onPostFormVisible(e, true)}>New Post</button>
                   }
                 </div>
-                <NotebookList onPostFormVisible={onPostFormVisible}/>
+                <NotebookList onPostFormVisible={onPostFormVisible} />
               </div>
             </div>
           </div>

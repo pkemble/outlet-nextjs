@@ -6,7 +6,7 @@ import { SessionProvider } from 'next-auth/react';
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <SessionProvider session={session} refetchInterval={5 * 60}>
+    <SessionProvider session={session} refetchInterval={5 * 60} basePath={process.env.NEXTAUTH_URL}>
         <Layout>
           <Component {...pageProps} />
         </Layout>

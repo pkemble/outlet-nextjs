@@ -4,7 +4,7 @@ import { React } from 'react';
 const PostHeader = ({ post }) => {
 
     moment.locale('en');
-    const headerString = moment(post.created_at).format('ll');
+    var headerString = moment(post.created_at).format('ll');
 
     if (post.notebooks !== null) {
         headerString += ' : ' + post.notebooks['title'];

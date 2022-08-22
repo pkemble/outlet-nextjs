@@ -6,33 +6,39 @@
     "start": "next start"
   },
   "dependencies": {
-    "@prisma/client": "^3.8.1",
+    "@prisma/client": "^3.15.2",
     "axios": "^0.25.0",
     "babel-plugin-superjson-next": "^0.4.3",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
-    "html-react-parser": "^1.4.5",
-    "moment": "^2.29.1",
+    "html-react-parser": "^1.4.14",
+    "moment": "^2.29.4",
     "next": "latest",
     "next-absolute-url": "^1.2.2",
-    "next-auth": "^4.2.1",
+    "next-auth": "^4.10.3",
+    "pm2": "^5.2.0",
     "react": "^17.0.2",
-    "react-datepicker": "^4.6.0",
+    "react-datepicker": "^4.8.0",
     "react-dom": "^17.0.2",
     "react-html-parser": "^2.0.2",
+<<<<<<< HEAD
     "react-query": "^3.34.12",
     "slug": "^5.2.0",
     "superjson": "^1.8.1"
+=======
+    "react-query": "^3.39.2",
+    "slug": "^5.3.0"
+>>>>>>> 9b349d2f2c4fb47e8f984846f19058b1bb9c9fba
   },
   "devDependencies": {
     "@types/node": "17.0.4",
     "@types/react": "17.0.38",
-    "autoprefixer": "^10.4.0",
-    "postcss": "^8.4.5",
-    "prettier": "^2.5.1",
-    "prettier-plugin-tailwindcss": "^0.1.1",
-    "prisma": "^3.9.1",
-    "tailwindcss": "^3.0.7",
+    "autoprefixer": "^10.4.8",
+    "postcss": "^8.4.16",
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "prisma": "^3.15.2",
+    "tailwindcss": "^3.1.8",
     "typescript": "4.5.4"
   }
 }

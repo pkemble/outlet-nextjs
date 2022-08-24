@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react';
-import ReactHtmlParser from 'react-html-parser';
+import parse from 'html-react-parser';
 import { PostForm } from '.';
 import PostHeader from './PostHeader'
 
@@ -40,7 +40,7 @@ const PostCard = ({ post, notebooks, onPostFormVisible }) => {
                             </svg>
                         </button>
                     </div>
-                    {ReactHtmlParser(post.content)}
+                    {parse(post.content)}
                 </div> :
                 <div className='clear-both bg-white border shadow-lg rounded-lg p-2 lg:p-8 pb-12 mb-8'>
                     <PostForm key={post.id} notebooks={notebooks} onPostFormVisible={handlePostFormVisible} actionText={"Edit Post:"} existingPost={post} />

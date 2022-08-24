@@ -20,15 +20,9 @@
     "react": "^17.0.2",
     "react-datepicker": "^4.8.0",
     "react-dom": "^17.0.2",
-    "react-html-parser": "^2.0.2",
-<<<<<<< HEAD
-    "react-query": "^3.34.12",
-    "slug": "^5.2.0",
-    "superjson": "^1.8.1"
-=======
     "react-query": "^3.39.2",
-    "slug": "^5.3.0"
->>>>>>> 9b349d2f2c4fb47e8f984846f19058b1bb9c9fba
+    "slug": "^5.3.0",
+    "superjson": "^1.8.1"
   },
   "devDependencies": {
     "@types/node": "17.0.4",

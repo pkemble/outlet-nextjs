@@ -26,12 +26,10 @@ const PostForm = ({ notebooks, onPostFormVisible, actionText, existingPost }) =>
     }
 
     const setPostDate = (date) => {
-        setPost({
-            ...post,
-            post: {
+        setPost(prevState => ({
+            ...prevState,
                 created_at: date
-            }
-        });
+        }));
     }
     const getContentForSubmit = (e) => {
         setPost(prevState => ({
@@ -42,8 +40,9 @@ const PostForm = ({ notebooks, onPostFormVisible, actionText, existingPost }) =>
 
     const sendPostData = async (e) => {
         e.preventDefault();
-
         console.log(post);
+
+        post.notebook_id = !post.notebook_id ? notebooks[0].id : post.notebook_id
 
         await axios.post('api/post', post)
             .then(response => {
@@ -80,7 +79,7 @@ const PostForm = ({ notebooks, onPostFormVisible, actionText, existingPost }) =>
                         className="shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         name="notebook_id"
                         onChange={(e) => setPostData(e)}
-                        defaultValue={post.notebook_id} >
+                        selected={!post.notebook_id ? notebooks[0].id : post.notebook_id } >
                         {notebooks.map(notebook =>
                             <option key={notebook.id} value={notebook.id}>
                                 {notebook.title}

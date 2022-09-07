@@ -1,6 +1,7 @@
 export { default as NotebookList } from './NotebookList';
 export { default as Header } from './Header';
 export { default as PostCard } from './PostCard';
+export { default as PostPreview } from './PostPreview'
 export { default as Layout } from './Layout';
 export { default as NotebookForm } from './NotebookForm';
 export { default as CreateNotebookForm } from './CreateNotebookForm';
@@ -9,5 +10,6 @@ export { default as Main } from './Main';
 export { default as NotebookManager } from './NotebookManager';
 export { default as PostContentEditor } from './PostFormEditor/PostContentEditor';
 export { default as Login } from './Login';
+
           
 

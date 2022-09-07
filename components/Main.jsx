@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { PostCard, PostForm, NotebookList } from './index';
+import { PostPreview, PostForm, NotebookList } from './index';
 import { DataContext, useOutletData } from '../context/DataContext';
 
 
@@ -25,7 +25,8 @@ const Main = () => {
               {postFormVisible ?
                 <PostForm notebooks={outletState.notebooks} onPostFormVisible={onPostFormVisible} actionText={"Create Post: "} /> :
                 outletState.posts.map((post, index) =>
-                  <PostCard key={index} post={post} notebooks={outletState.notebooks} onPostFormVisible={onPostFormVisible} />
+                  // <PostCard key={index} post={post} notebooks={outletState.notebooks} onPostFormVisible={onPostFormVisible} />
+                  <PostPreview key={index} post={post} notebooks={outletState.notebooks} onPostFormVisible={onPostFormVisible} />
                 )}
             </div>
             <div className="lg:col-span-4">
